@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: CucumberRunnerTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 2, Errors: 0, Skipped: 2, Time elapsed: 95.16 sec <<< FAILURE!
+Given I open landrover home page with title \"Premium 4X4 Vehicles & Luxury SUV\'s - Land Rover UK\"(Scenario: Open the Landrover Base Website)  Time elapsed: 0.107 sec  <<< FAILURE!
+org.junit.ComparisonFailure: expected:<Premium 4[X4 Vehicles & Luxury SUV']s - Land Rover UK> but was:<Premium 4[x4 Vehicles & Luxury SUV]s - Land Rover UK>
+	at org.junit.Assert.assertEquals(Assert.java:115)
+	at org.junit.Assert.assertEquals(Assert.java:144)
+	at Components.CheckOurVehiclesSubTitleBgrColor.openHomePage(CheckOurVehiclesSubTitleBgrColor.java:42)
+	at ✽.Given I open landrover home page with title "Premium 4X4 Vehicles & Luxury SUV's - Land Rover UK"(features/checkOurVehiclesSubTitleBgrColor.feature:6)
+Scenario: Open the Landrover Base Website  Time elapsed: 0.14 sec  <<< FAILURE!
+org.junit.ComparisonFailure: expected:<Premium 4[X4 Vehicles & Luxury SUV']s - Land Rover UK> but was:<Premium 4[x4 Vehicles & Luxury SUV]s - Land Rover UK>
+	at org.junit.Assert.assertEquals(Assert.java:115)
+	at org.junit.Assert.assertEquals(Assert.java:144)
+	at Components.CheckOurVehiclesSubTitleBgrColor.openHomePage(CheckOurVehiclesSubTitleBgrColor.java:42)
+	at ✽.Given I open landrover home page with title "Premium 4X4 Vehicles & Luxury SUV's - Land Rover UK"(features/checkOurVehiclesSubTitleBgrColor.feature:6)

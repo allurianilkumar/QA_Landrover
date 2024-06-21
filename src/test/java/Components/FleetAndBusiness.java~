@@ -1,0 +1,69 @@
+package Components;
+
+import constants.ApplicationConstants;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import utils.BrowserFactory;
+import utils.CommonUtil;
+
+
+public class FleetAndBusiness {
+    private static WebDriver driver;
+    private static String fleetAndBusinessTitle;
+    private static String fleetAndBusinessHeading;
+    private static String backgroundColor;
+
+
+    @Before("@feetAndBusiness")
+    public static void setUp() throws Exception {
+        driver = BrowserFactory.getDriver();
+        CommonUtil.setWindowSize(driver, ApplicationConstants.DESKTOP);
+        CommonUtil.setImplicitlyWaitTime(driver, 5);
+
+    }
+
+    @After("@feetAndBusiness")
+    public static void tearDown() throws Exception {
+        CommonUtil.quitBrowser(driver);
+    }
+
+    //@Given("^I am on the landrover home page with title \"(.*)\"$")
+    @Given("^I am on the landrover home page with title \"(.*)\"$")
+    public void openHomePage(String homePageTitle) throws Throwable {
+        driver.get("http://www.landrover.co.uk/index.html");
+        Thread.sleep(1000);
+        // Checking the home page title
+        Assert.assertEquals( homePageTitle, driver.getTitle().toString().trim());
+    }
+    @When("^I view Fleet And Business title and of it's title background color in Hero Title Banner$")
+    public void feetAndBusinessTitleAndBackgroundColor(){
+        // Clicking on the FLEET & BUSINESS menu
+        driver.findElement(By.linkText("FLEET & BUSINESS")).click();
+        fleetAndBusinessTitle = driver.getTitle().toString().trim();
+        //Assert.assertEquals( fleetAndBusinessTitleName, driver.getTitle().toString().trim());
+        fleetAndBusinessHeading = driver.findElement(By.cssSelector("#\\32 95-91683 > div > div > div > h1 > span > span")).getText();
+        // Logic for Feet And Business Background Color id #4a4f54;
+        WebElement feetAndBusinessBgColor = driver.findElement(By.cssSelector("#\\32 95-91683"));
+        // Displaying the rgba format
+        backgroundColor = feetAndBusinessBgColor.getCssValue("background-color");
+    }
+
+    @Then("^I will check Fleet And Business heading name is \"(.*)\" with title \"(.*)\" and of it's background color is \"(.*)\"$")
+    public void checkFeetAndBusinessTitleAndBackgroundColor(String feetAndBusinessHeadingName, String feetAndBusinessMenuTitle, String feetAndBusinessHeadingBackgroundColor){
+        // Checking the Feet And Business Title name
+        Assert.assertEquals(feetAndBusinessMenuTitle,fleetAndBusinessTitle.toString().trim());
+        // Checking the Feet And Business Heading name
+        Assert.assertEquals(feetAndBusinessHeadingName,fleetAndBusinessHeading.toString().trim());
+        // converting the rgba to hexa value format
+        String[] hexValue = backgroundColor.replace("rgba(", "").replace(")", "").split(",");
+        String feetAndBusinessBackgroundColorValue = String.format("#%02x%02x%02x", Integer.parseInt(hexValue[0].trim()), Integer.parseInt(hexValue[1].trim()), Integer.parseInt(hexValue[2].trim()));
+        Assert.assertEquals(feetAndBusinessHeadingBackgroundColor, feetAndBusinessBackgroundColorValue);
+    }
+}
